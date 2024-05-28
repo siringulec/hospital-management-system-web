@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctors Details and Delete</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('fetchDoctors.php')
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById('doctorsTable');
+                    if (data.length > 0) {
+                        data.forEach(doctor => {
+                            const row = table.insertRow();
+                            const idCell = row.insertCell(0);
+                            const nameCell = row.insertCell(1);
+                            const specialtyCell = row.insertCell(2);
+                            const genderCell = row.insertCell(3);
+                            const phoneCell = row.insertCell(4);
+                            const passCell = row.insertCell(5);
+                            const deleteCell = row.insertCell(6);
+
+                            idCell.textContent = doctor.identification_number;
+                            nameCell.textContent = doctor.name;
+                            specialtyCell.textContent = doctor.subspecialty;
+                            genderCell.textContent = doctor.gender;
+                            phoneCell.textContent = doctor.phone;
+                            passCell.textContent = doctor.pass;
+                            deleteCell.innerHTML = `<a href="deleteDoc.php?a=${doctor.identification_number}">Delete</a>`;
+                        });
+                    } else {
+                        const row = table.insertRow();
+                        const cell = row.insertCell(0);
+                        cell.colSpan = 7;
+                        cell.textContent = 'No doctors found';
+                    }
+                });
+        });
+    </script>
+</head>
+<body>
+    <h1>Doctors Details and Delete</h1>
+    <table class="tb" id="doctorsTable">
+        <thead>
+            <tr id="data">
+                <th>Doctor ID</th>
+                <th>Doctor Name</th>
+                <th>Subspeciality</th>
+                <th>Gender</th>
+                <th>Phone Number</th>
+                <th>Password</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+    <a href="dash.html" class="back-button">Back to Dashboard</a>
+</body>
+</html>

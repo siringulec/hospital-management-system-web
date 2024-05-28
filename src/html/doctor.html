@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Doctor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2 class="label">Add Doctor</h2>
+    <div class="form-container">
+        <form method="POST" class="c" action="addDoc.php">
+            <label for="idd">ID:</label>
+            <input type="text" id="idd" name="idd" placeholder="Identification Number" required>
+            <label for="nameDoc">Full Name:</label>
+            <input type="text" id="nameDoc" name="nameDoc" placeholder="Full Name" required>
+            <label for="spe">Subspeciality:</label>
+            <input type="text" id="spe" name="spe" placeholder="Subspeciality" required>
+            <label for="phoneNum">Phone Number:</label>
+            <input type="text" id="phoneNum" name="phoneNum" placeholder="Phone Number" required>
+            <label for="pass">Password:</label>
+            <input type="text" id="pass" name="pass" placeholder="Password" required>
+
+            <p>Gender:</p>
+            <input type="radio" name="gender" id="male" value="Male" required>
+            <label for="male">Male</label>
+            <input type="radio" name="gender" id="female" value="Female">
+            <label for="female">Female</label>
+            <input type="radio" name="gender" id="other" value="Other">
+            <label for="other">Other</label>
+
+            <button type="submit" id="submit" name="submit" class="btn">Add Doctor</button>
+        </form>
+    </div>
+</body>
+</html>
