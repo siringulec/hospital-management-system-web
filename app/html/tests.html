@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Type of Tests Available</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('fetchTests.php')
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById('testsTable');
+                    if (data.length > 0) {
+                        data.forEach(test => {
+                            const row = table.insertRow();
+                            const idCell = row.insertCell(0);
+                            const descriptionCell = row.insertCell(1);
+
+                            idCell.textContent = test.typeID;
+                            descriptionCell.textContent = test.type_of_test;
+                        });
+                    } else {
+                        const row = table.insertRow();
+                        const cell = row.insertCell(0);
+                        cell.colSpan = 2;
+                        cell.textContent = 'No tests found';
+                    }
+                });
+        });
+    </script>
+</head>
+<body>
+    <section>
+        <h1>Type Of Test Available</h1>
+        <table id="testsTable">
+            <tr>
+                <th>Type of Test ID</th>
+                <th>Type of Test Description</th>
+            </tr>
+        </table>
+        <a href="dash.html" class="back-button">Back to Dashboard</a>
+    </section>
+</body>
+</html>

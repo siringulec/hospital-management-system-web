@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Patient Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Poppins", sans-serif
+        }
+
+        body {
+            font-size: 16px;
+        }
+
+        .hms-half img {
+            margin-bottom: -6px;
+            margin-top: 16px;
+            opacity: 0.8;
+            cursor: pointer
+        }
+
+        .hms-half img:hover {
+            opacity: 1
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar/menu -->
+    <nav class="hms-sidebar hms-pink hms-collapse hms-top hms-large hms-padding"
+        style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+        <a href="javascript:void(0)" onclick="hms_close()" class="hms-button hms-hide-large hms-display-topleft"
+            style="width:100%;font-size:22px">Close Menu</a>
+        <div class="hms-container">
+            <h3 class="hms-padding-64"><b>D&S<br>Hospital</b></h3>
+        </div>
+        <div class="hms-bar-block">
+            <a href="#" onclick="hms_close()" class="hms-bar-item hms-button hms-hover-white">Home</a>
+            <a href="#appointments" onclick="hms_close()"
+                class="hms-bar-item hms-button hms-hover-white">Appointments</a>
+            <a href="#prescriptions" onclick="hms_close()"
+                class="hms-bar-item hms-button hms-hover-white">Prescriptions</a>
+            <a href="#diagnosis" onclick="hms_close()" class="hms-bar-item hms-button hms-hover-white">Diagnosis</a>
+            <a href="#tests" onclick="hms_close()" class="hms-bar-item hms-button hms-hover-white">Tests</a>
+            <a href="#bills" onclick="hms_close()" class="hms-bar-item hms-button hms-hover-white">Bills</a>
+            <a href="#logout" onclick=href='index.html' class="hms-bar-item hms-button hms-hover-white">Log Out</a>
+        </div>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="hms-container hms-top hms-hide-large hms-pink hms-xlarge hms-padding">
+        <a href="javascript:void(0)" class="hms-button hms-pink hms-margin-right" onclick="hms_open()">☰</a>
+        <span>D&S Hospital</span>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="hms-overlay hms-hide-large" onclick="hms_close()" style="cursor:pointer" title="close side menu"
+        id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="hms-main" style="margin-left:340px;margin-right:40px">
+
+        <!-- Header -->
+        <div class="hms-container" style="margin-top:80px" id="appointments">
+            <h1 class="hms-jumbo"><b>Hospital Managment</b></h1>
+            <hr style="width:50px;border:5px solid #E67484" class="hms-round">
+        </div>
+
+        <!-- appointments -->
+        <div>
+            <h1 class="hms-xxxlarge hms-text-pink"><b>Appointments</b></h1>
+            <hr style="width:50px;border:5px solid #E67484" class="hms-round">
+            <?php
+                include_once("../php/dbconnect.php");
+                include_once("../php/patient_connect.php");
+                $query = "SELECT doctor.name, appointments.date, appointments.time FROM appointments INNER JOIN doctor ON appointments.doctorID = doctor.identification_number WHERE patientID=?";
+                $fetchData = data($conn, $username, $query);
+            ?>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <?php echo $deleteMsg??''; ?>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        if(is_array($fetchData)){      
+                                        $sn=1;
+                                        foreach($fetchData as $data){
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $sn; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['name']??''; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['date']??''; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['time']??''; ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                        $sn++;}}else{ ?>
+                                    <tr>
+                                        <td colspan="8">
+                                            <?php echo $fetchData; ?>
+                                        </td>
+                                    <tr>
+                                        <?php
+                                        }?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- prescriptions -->
+        <div class="hms-container" id="prescriptions" style="margin-top:75px">
+            <h1 class="hms-xxxlarge hms-text-pink"><b>Prescriptions</b></h1>
+            <hr style="width:50px;border:5px solid #E67484" class="hms-round">
+            <?php
+                $query = "SELECT medicine.name, prescription.dosage, prescription.date FROM prescription INNER JOIN medicine ON prescription.medicineID = medicine.medicineID WHERE patientID=?";
+                $fetchData = data($conn, $username, $query);
+            ?>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <?php echo $deleteMsg??''; ?>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Medicine</th>
+                                        <th>Dosage</th>
+                                        <th>Date</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+
+                                        if(is_array($fetchData)){      
+                                        $sn=1;
+                                        foreach($fetchData as $data){
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $sn; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['name']??''; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['dosage']??''; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['date']??''; ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                        $sn++;}}else{ ?>
+                                    <tr>
+                                        <td colspan="8">
+                                            <?php echo $fetchData; ?>
+                                        </td>
+                                    <tr>
+                                        <?php
+                                        }?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- diagnosis -->
+        <div class="hms-container" id="diagnosis" style="margin-top:75px">
+            <h1 class="hms-xxxlarge hms-text-pink"><b>Diagnosis</b></h1>
+            <hr style="width:50px;border:5px solid #E67484" class="hms-round">
+            <?php
+                $query = "SELECT symptoms, diagnosis, date FROM diagnosis WHERE patientID=?";
+                $fetchData = data($conn, $Id, $query);
+            ?>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <?php echo $deleteMsg??''; ?>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Symptoms</th>
+                                        <th>Diagnosis</th>
+                                        <th>Date</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+
+                                        if(is_array($fetchData)){      
+                                        $sn=1;
+                                        foreach($fetchData as $data){
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $sn; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['symptoms']??''; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['diagnosis']??''; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['date']??''; ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                        $sn++;}}else{ ?>
+                                    <tr>
+                                        <td colspan="8">
+                                            <?php echo $fetchData; ?>
+                                        </td>
+                                    <tr>
+                                        <?php
+                                        }?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- tests -->
+        <div class="hms-container" id="tests" style="margin-top:75px">
+            <h1 class="hms-xxxlarge hms-text-pink"><b>Tests</b></h1>
+            <hr style="width:50px;border:5px solid #E67484" class="hms-round">
+            <?php
+                $query = "SELECT type_of_test.type_of_test, test.results, test.date FROM test INNER JOIN type_of_test ON test.type_of_test = type_of_test.typeID WHERE patientID=?";
+                $fetchData = data($conn, $Id, $query);
+            ?>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <?php echo $deleteMsg??''; ?>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Test</th>
+                                        <th>Results</th>
+                                        <th>Date</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+
+                                        if(is_array($fetchData)){      
+                                        $sn=1;
+                                        foreach($fetchData as $data){
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $sn; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['type_of_test']??''; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['results']??''; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['date']??''; ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                        $sn++;}}else{ ?>
+                                    <tr>
+                                        <td colspan="8">
+                                            <?php echo $fetchData; ?>
+                                        </td>
+                                    <tr>
+                                        <?php
+                                        }?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- bills -->
+        <div class="hms-container" id="bills" style="margin-top:75px">
+            <h1 class="hms-xxxlarge hms-text-pink"><b>Bills</b></h1>
+            <hr style="width:50px;border:5px solid #E67484" class="hms-round">
+            <?php
+                $query = "SELECT basic_amount, amount_assured, date FROM bills WHERE patientID=?";
+                $fetchData = data($conn, $Id, $query);
+            ?>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <?php echo $deleteMsg??''; ?>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Total Bill</th>
+                                        <th>Amount Insured</th>
+                                        <th>Date</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+
+                                        if(is_array($fetchData)){      
+                                        $sn=1;
+                                        foreach($fetchData as $data){
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $sn; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['type_of_test']??''; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['results']??''; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $data['date']??''; ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                        $sn++;}}else{ ?>
+                                    <tr>
+                                        <td colspan="8">
+                                            <?php echo $fetchData; ?>
+                                        </td>
+                                    <tr>
+                                        <?php
+                                        }?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- End page content -->
+    </div>
+
+    <div class="hms-light-grey hms-container hms-padding-32" style="margin-top:75px;padding-right:58px"></div>
+
+    <script>
+        // Script to open and close sidebar
+        function hms_open() {
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
+        }
+
+        function hms_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>

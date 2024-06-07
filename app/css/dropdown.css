@@ -1,0 +1,48 @@
+.bckg {
+  color: #671f2b;
+}
+
+.dropdown {
+  color: #602a42;
+  text-align: left;
+  font-weight: bold;
+  font-size: 25px;
+  font-family: "courier New";
+  position: left;
+}
+
+.btn {
+  background-color: rosybrown;
+  border-radius: 5px;
+  padding: 15px 30px;
+  font-size: 50px;
+  position: left;
+  cursor: pointer;
+  font-family: "courier New";
+  color: black;
+}
+
+
+.dropdown-options {
+  display: none;
+  position: absolute;
+  overflow: auto;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.4);
+}
+
+.row {
+  background-color: rosybrown
+}
+
+.w {
+
+  font-weight: bold;
+  color: #671f2b;
+
+}
+
+.bd {
+  background-color: rgb(205, 110, 126);
+}

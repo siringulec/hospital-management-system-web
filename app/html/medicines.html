@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Medicines Details</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('fetchMedicines.php')
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById('medtable');
+                    if (data.length > 0) {
+                        data.forEach(medicine => {
+                            const row = table.insertRow();
+                            const nameCell = row.insertCell(0);
+                            const idCell = row.insertCell(1);
+                            const stockCell = row.insertCell(2);
+                            const actionCell = row.insertCell(3);
+
+                            nameCell.textContent = medicine.name;
+                            idCell.textContent = medicine.medicineID;
+                            stockCell.textContent = medicine.stock;
+                            actionCell.innerHTML = `<a href="Up.php?a=${medicine.name}">Update</a>`;
+                        });
+                    } else {
+                        const row = table.insertRow();
+                        const cell = row.insertCell(0);
+                        cell.colSpan = 4;
+                        cell.textContent = 'No medicines found';
+                    }
+                });
+        });
+
+        function myFunction() {
+            const input = document.getElementById("myInput");
+            const filter = input.value.toUpperCase();
+            const table = document.getElementById("medtable");
+            const tr = table.getElementsByTagName("tr");
+            for (let i = 0; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    const txtValue = td.textContent || td.innerText;
+                    tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <section>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by name..." title="Type in a name"><br><br>
+        <h1>Medicines</h1>
+        <table id="medtable">
+            <tr>
+                <th>Name</th>
+                <th>Medicine ID</th>
+                <th>Stock</th>
+                <th>Action</th>
+            </tr>
+        </table>
+        <a href="dash.html" class="back-button">Back to Dashboard</a>
+    </section>
+</body>
+</html>
