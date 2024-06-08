@@ -26,17 +26,6 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   KEY `doctorID` (`doctorID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-DROP TABLE IF EXISTS `bills`;
-CREATE TABLE IF NOT EXISTS `bills` (
-  `billID` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `patientID` BIGINT(20) UNSIGNED NOT NULL,
-  `basic_amount` DOUBLE NOT NULL,
-  `amount_assured` DOUBLE NOT NULL,
-  `date` DATE NOT NULL,
-  PRIMARY KEY (`billID`),
-  KEY `patientID` (`patientID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 DROP TABLE IF EXISTS `diagnosis`;
 CREATE TABLE IF NOT EXISTS `diagnosis` (
   `diagnosisID` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -118,9 +107,6 @@ CREATE TABLE IF NOT EXISTS `type_of_test` (
 ALTER TABLE `appointments`
   ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`doctorID`) REFERENCES `doctor` (`doctorID`) ON DELETE CASCADE,
   ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`patientID`) REFERENCES `patient` (`patientID`) ON DELETE CASCADE;
-
-ALTER TABLE `bills`
-  ADD CONSTRAINT `bills_ibfk_2` FOREIGN KEY (`patientID`) REFERENCES `patient` (`patientID`) ON DELETE CASCADE;
 
 ALTER TABLE `diagnosis`
   ADD CONSTRAINT `diagnosis_ibfk_2` FOREIGN KEY (`patientID`) REFERENCES `patient` (`patientID`) ON DELETE CASCADE;
