@@ -18,8 +18,26 @@ INSERT INTO `patient` (`patientID`, `username`, `password`, `name`, `age`, `gend
 INSERT INTO `doctor` (`doctorID`, `username`, `password`, `name`, `subspecialty`, `gender`, `phone`) VALUES
 (1, 'mgiordano', '$2y$10$8ogulo4x4rExq3ApxlANPe4zhVW1vPCfAaAKfwJovuk.rIB6.VkKy', 'Michael Joseph Giordano', 'Neurological Surgeon', 'Other', '+90 (955) 178-8903'),
 (2, 'lavhs', '$2y$10$8ogulo4x4rExq3ApxlANPe4zhVW1vPCfAaAKfwJovuk.rIB6.VkKy', 'Lee Ann Van Houten-Sauter', 'Family Doctor', 'Female', '+90 (595) 996-1448'),
-(3, 'ghp', '$2y$10$8ogulo4x4rExq3ApxlANPe4zhVW1vPCfAaAKfwJovuk.rIB6.VkKy%', 'Glenn Howard Perelson', 'Cardiologist', 'Male', '+90 (806) 251-2945'),
+(3, 'ghp', '$2y$10$8ogulo4x4rExq3ApxlANPe4zhVW1vPCfAaAKfwJovuk.rIB6.VkKy%', 'Glenn Howard Perelson', 'Cardiologist', 'Male', '+90 (806) 251-2945');
 
+-- Insert data into type_of_test first as it is referenced by test table
+INSERT INTO `type_of_test` (`typeID`, `type_of_test`) VALUES
+(1, 'X-ray'),
+(2, 'Concussion Test'),
+(3, 'MR'),
+(4, 'Ultrasound'),
+(5, 'Allergy Blood'),
+(6, 'Heart Disease Risk Assessment'),
+(7, 'Vitamin D'),
+(8, 'Yeast Infection'),
+(9, 'Hemoglobin'),
+(10, 'Glucose in Urine'),
+(11, 'Calcium in Blood'),
+(12, 'Blood Glucose'),
+(13, 'Appendicitis Tests'),
+(14, 'Pregnancy Test'),
+(15, 'Sleep Study'),
+(16, 'TSH');
 
 -- Insert data into appointments
 INSERT INTO `appointments` (`appointmentID`, `patientID`, `doctorID`, `date`, `time`) VALUES
@@ -52,39 +70,16 @@ INSERT INTO `medicine` (`medicineID`, `name`, `stock`) VALUES
 
 -- Insert data into prescription
 INSERT INTO `prescription` (`prescriptionID`, `patientID`, `medicineID`, `dosage`, `date`) VALUES
-(1, 3, 3, '750mg', '2022-11-14'),
-(2, 1, 10, '500mg', '2023-01-08'),
-(3, 2, 1, '500mg', '2023-01-08'),
-(4, 3, 12, '1000mg', '2023-01-08');
+(1, 3, 3, '750mg', '2024-11-14'),
+(2, 1, 10, '500mg', '2024-08-08'),
+(3, 2, 1, '500mg', '2024-08-08'),
+(4, 3, 12, '1000mg', '2024-08-08');
 
 -- Insert data into test
 INSERT INTO `test` (`testID`, `patientID`, `type_of_test`, `results`, `date`) VALUES
-(1, 1, 1, '101,01', '2023-01-02'),
-(2, 2, 5, '5,5', '2023-01-02'),
-(3, 3, 9, '10,9', '2023-01-02'),
-(4, 3, 9, '3,9', '2023-01-02'),
-(5, 1, 5, '99,8', '2023-01-07'),
-(6, 1, 4, '10,44', '2023-01-07'),
-(7, 3, 1, '20,9', '2023-01-07'),
-(8, 1, 3, '103,3', '2023-01-07');
-
--- Insert data into type_of_test
-INSERT INTO `type_of_test` (`typeID`, `type_of_test`) VALUES
-(1, 'X-ray'),
-(2, 'Concussion Test'),
-(3, 'MR'),
-(4, 'Ultrasound'),
-(5, 'Allergy Blood'),
-(6, 'Heart Disease Risk Assessment'),
-(7, 'Vitamin D'),
-(8, 'Yeast Infection'),
-(9, 'Hemoglobin'),
-(10, 'Glucose in Urine'),
-(11, 'Calcium in Blood'),
-(12, 'Blood Glucose'),
-(13, 'Appendicitis Tests'),
-(14, 'Pregnancy Test'),
-(15, 'Sleep Study'),
-(16, 'TSH');
+(1, 1, 1, '101,01', '2024-08-02'),
+(2, 2, 5, '5,5', '2024-08-02'),
+(3, 3, 9, '10,9', '2024-08-02'),
+(4, 3, 9, '3,9', '2024-08-02');
 
 COMMIT;
