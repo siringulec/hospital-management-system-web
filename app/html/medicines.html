@@ -2,34 +2,185 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medicines Details</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .main-color {
+            color: #E67484;
+        }
+        .accent-color {
+            color: #602a42;
+        }
+        .btn-custom {
+            background-color: #E67484;
+            border-color: #E67484;
+            color: #fff;
+        }
+        .btn-custom:hover {
+            background-color: #602a42;
+            border-color: #602a42;
+            color: #fff;
+        }
+        .table-container {
+            margin: 20px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            margin: 20px 0;
+            box-sizing: border-box;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container">
+        <h1 class="main-color text-center my-4">Medicines</h1>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by name..." title="Type in a name" class="form-control search-input"><br><br>
+        <div class="table-container">
+            <table class="table table-striped table-bordered" id="medtable">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Medicine ID</th>
+                        <th>Name</th>
+                        <th>Stock</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+            <div class="text-center">
+                <a href="dash.html" class="btn btn-custom mt-3">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="updateModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Update Stock</h2>
+            <form id="updateForm">
+                <input type="hidden" id="medID">
+                <div class="form-group">
+                    <label for="newStock">New Stock:</label>
+                    <input type="number" id="newStock" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('fetchMedicines.php')
+            fetch('../php/fetchMedicines.php')
                 .then(response => response.json())
                 .then(data => {
-                    const table = document.getElementById('medtable');
+                    const table = document.getElementById('medtable').getElementsByTagName('tbody')[0];
                     if (data.length > 0) {
                         data.forEach(medicine => {
                             const row = table.insertRow();
-                            const nameCell = row.insertCell(0);
-                            const idCell = row.insertCell(1);
+                            const idCell = row.insertCell(0);
+                            const nameCell = row.insertCell(1);
                             const stockCell = row.insertCell(2);
-                            const actionCell = row.insertCell(3);
+                            const updateCell = row.insertCell(3);
+                            const deleteCell = row.insertCell(4);
 
-                            nameCell.textContent = medicine.name;
                             idCell.textContent = medicine.medicineID;
+                            nameCell.textContent = medicine.name;
                             stockCell.textContent = medicine.stock;
-                            actionCell.innerHTML = `<a href="Up.php?a=${medicine.name}">Update</a>`;
+                            updateCell.innerHTML = `<button class="btn btn-warning btn-sm" onclick="openModal('${medicine.medicineID}', '${medicine.stock}')">Update</button>`;
+                            deleteCell.innerHTML = `<a href="../php/deleteMed.php?a=${medicine.medicineID}" class="btn btn-danger btn-sm">Delete</a>`;
                         });
                     } else {
                         const row = table.insertRow();
                         const cell = row.insertCell(0);
-                        cell.colSpan = 4;
+                        cell.colSpan = 5;
                         cell.textContent = 'No medicines found';
+                        cell.className = 'text-center';
                     }
                 });
+
+            // Modal handling
+            const modal = document.getElementById("updateModal");
+            const span = document.getElementsByClassName("close")[0];
+            const form = document.getElementById("updateForm");
+
+            window.openModal = function(medID, currentStock) {
+                document.getElementById('medID').value = medID;
+                document.getElementById('newStock').value = currentStock;
+                modal.style.display = "block";
+            }
+
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            form.onsubmit = function(event) {
+                event.preventDefault();
+                const medID = document.getElementById('medID').value;
+                const newStock = document.getElementById('newStock').value;
+
+                fetch('../php/updateMed.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `mid=${medID}&stck=${newStock}&s=1`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert('Stock updated successfully');
+                    modal.style.display = "none";
+                    location.reload(); // Reload the page to reflect the changes
+                })
+                .catch(error => console.error('Error:', error));
+            }
         });
 
         function myFunction() {
@@ -38,7 +189,7 @@
             const table = document.getElementById("medtable");
             const tr = table.getElementsByTagName("tr");
             for (let i = 0; i < tr.length; i++) {
-                const td = tr[i].getElementsByTagName("td")[0];
+                const td = tr[i].getElementsByTagName("td")[1];
                 if (td) {
                     const txtValue = td.textContent || td.innerText;
                     tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
@@ -46,20 +197,9 @@
             }
         }
     </script>
-</head>
-<body>
-    <section>
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by name..." title="Type in a name"><br><br>
-        <h1>Medicines</h1>
-        <table id="medtable">
-            <tr>
-                <th>Name</th>
-                <th>Medicine ID</th>
-                <th>Stock</th>
-                <th>Action</th>
-            </tr>
-        </table>
-        <a href="dash.html" class="back-button">Back to Dashboard</a>
-    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

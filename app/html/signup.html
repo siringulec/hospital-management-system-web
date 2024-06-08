@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .login-body {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .header {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .header h1, .header h2 {
+            color: #E67484;
+        }
+        .login-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-label {
+            margin-top: 10px;
+        }
+        .btn-custom {
+            background-color: #E67484;
+            border-color: #E67484;
+            color: #fff;
+        }
+        .btn-custom:hover {
+            background-color: #602a42;
+            border-color: #602a42;
+            color: #fff;
+        }
+        .admin-login {
+            background-color: #602a42;
+            border-color: #602a42;
+            color: #fff;
+        }
+        .admin-login:hover {
+            background-color: #E67484;
+            border-color: #E67484;
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="login-body">
+    <div class="header">
+        <h1>WELCOME TO "D&S" HOSPITAL</h1>
+        <h2>Patient Registration</h2>
+    </div>
+    <div class="login-container">
+        <form action="../php/registerPatient.php" method="POST">
+            <div class="form-group">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="age" class="form-label">Age</label>
+                <input type="number" class="form-control" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="gender" class="form-label">Gender</label>
+                <select id="gender" name="gender" class="form-control" required>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone" required>
+            </div>
+            <div class="form-group text-center">
+                <button type="button" class="btn admin-login mr-2" onclick="location.href='../index.html'">Back to Login</button>
+                <button type="reset" class="btn btn-secondary mr-2">Cancel</button>
+                <button type="submit" class="btn btn-custom">Sign Up</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

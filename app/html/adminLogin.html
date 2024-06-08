@@ -38,31 +38,25 @@
             border-color: #602a42;
             color: #fff;
         }
-        .admin-login, .sign-up {
+        .admin-login {
             background-color: #602a42;
             border-color: #602a42;
             color: #fff;
-            width: 15%;
-            margin: 5px 1%;
         }
-        .admin-login:hover, .sign-up:hover {
+        .admin-login:hover {
             background-color: #E67484;
             border-color: #E67484;
             color: #fff;
-        }
-        .extra-buttons {
-            text-align: center;
-            margin-top: 20px;
         }
     </style>
 </head>
 <body class="login-body">
     <div class="header">
-        <h1>WELCOME TO D&amp;S HOSPITAL</h1>
+        <h1>D&amp;S Hospital Staff Login</h1>
         <h2>Enter your credentials</h2>
     </div>
     <div class="login-container">
-        <form action="php/authentification.php" method="POST">
+        <form action="../php/authenticateAdmin.php" method="POST">
             <div class="form-group">
                 <label for="unameid" class="form-label">Username</label>
                 <input type="text" class="form-control" id="unameid" name="unameid" required>
@@ -75,15 +69,12 @@
                 <input type="checkbox" class="form-check-input" id="togglePassword">
                 <label class="form-check-label" for="togglePassword">See Password</label>
             </div>
-            <div class="text-center">
+            <div class="form-group text-center">
+                <button type="button" class="btn admin-login mr-2" onclick="location.href='../index.html'">Back to Login</button>
                 <button type="button" class="btn btn-secondary mr-2" onclick="clearFields()">Cancel</button>
                 <button type="submit" class="btn btn-custom">Submit</button>
             </div>
         </form>
-    </div>
-    <div class="extra-buttons">
-        <button type="button" class="btn admin-login" onclick="location.href='html/adminLogin.html'">Staff Login</button>
-        <button type="button" class="btn sign-up" onclick="location.href='html/signup.html'">Sign Up</button>
     </div>
 
     <script>

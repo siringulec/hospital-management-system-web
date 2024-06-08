@@ -1,8 +1,21 @@
 <?php
 include('dbconnect.php');
 
-// SQL query to select data from database
-$sql = "SELECT * FROM appointments";
+$sql = "
+SELECT
+    appointments.appointmentID,
+    patient.name AS patient_name,
+    doctor.name AS doctor_name,
+    appointments.date,
+    appointments.time
+FROM
+    appointments
+JOIN
+    patient ON appointments.patientID = patient.patientID
+JOIN
+    doctor ON appointments.doctorID = doctor.doctorID;
+";
+
 $result = $conn->query($sql);
 
 $appointments = [];

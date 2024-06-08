@@ -74,6 +74,7 @@ input[type="radio"] {
 
 label {
     margin-bottom: 5px;
+
 }
 
 h2.label, h2.b, h2.c, .c {
@@ -93,6 +94,7 @@ h2.label, h2.b, h2.c, .c {
 
 .c {
     font-size: 20px;
+    text-align: left;
     font-weight: bold;
 }
 
@@ -114,12 +116,15 @@ h2.label, h2.b, h2.c, .c {
 .form-container label,
 .form-container input {
     margin-bottom: 5px;
-    text-align: left;
 }
-
+.form-container label{
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+}
 .form-container input[type="text"],
 .form-container input[type="password"] {
-    padding: 10px;
+
     width: calc(100% - 22px); /* Adjust width to fit within container padding */
 }
 

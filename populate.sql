@@ -4,10 +4,6 @@ SET time_zone = "+00:00";
 
 USE `hospital`;
 
--- Insert initial admin user
-INSERT INTO `admin_table` (`username`, `password`) VALUES
-('adminini', '$2y$10$h00FgPf2ZMFBw0fXFXUKVuz/l4rzM4PyWTvBDGRk2dweSY1rygfn2');
-
 -- Insert data into patient first to avoid foreign key issues
 INSERT INTO `patient` (`patientID`, `username`, `password`, `name`, `age`, `gender`, `phone`) VALUES
 (1, 'sirin', '$2y$10$tWrWjaw.W6UC7XrGoWvzrO5C/Ut18br.NVWCZcsoG2SdX6XBwsn42', 'Sirin Gulec', 40, 'Male', '+90 (407) 631-1700'),

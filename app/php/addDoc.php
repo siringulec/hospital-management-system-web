@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST['submit'])) {
-    $idd = $_POST['idd'];
+    $uname = $_POST['uname'];
     $nameDoc = $_POST['nameDoc'];
     $pass = $_POST['pass'];
     $spe = $_POST['spe'];
@@ -10,22 +10,30 @@ if (isset($_POST['submit'])) {
     include_once 'dbconnect.php';
 
     if (empty($conn)) {
-        echo "<script>alert('Database connection error'); window.open('doctor.html','_self');</script>";
+        echo "<script>alert('Database connection error')</script>";
+        echo "<script>window.open('../html/doctor.html','_self');</script>";
     } else {
-        if (!empty($idd) && !empty($nameDoc) && !empty($pass) && !empty($spe) && !empty($gender) && !empty($phoneNum)) {
-            $query = "INSERT INTO doctor (identification_number, name, pass, subspecialty, gender, phone) VALUES ('$idd', '$nameDoc', '$pass', '$spe', '$gender', '$phoneNum')";
+        if (!empty($uname) && !empty($nameDoc) && !empty($pass) && !empty($spe) && !empty($gender) && !empty($phoneNum)) {
+            
+            $hashed_pass = password_hash($pass, PASSWORD_BCRYPT);
+
+            $query = "INSERT INTO doctor (username, name, password, subspecialty, gender, phone) VALUES ('$uname', '$nameDoc', '$hashed_pass', '$spe', '$gender', '$phoneNum')";
             $res = mysqli_query($conn, $query);
             if ($res) {
-                echo "<script>alert('Data updated successfully'); window.open('doctorTable.html','_self');</script>";
+                
+                echo "<script>window.open('../html/doctor.html','_self');</script>";
             } else {
-                echo "<script>alert('Error inserting data'); window.open('doctor.html','_self');</script>";
+                echo "<script>alert('Error inserting data')</script>";
+                echo "<script>window.open('../html/doctor.html','_self');</script>";
             }
         } else {
-            echo "<script>alert('All fields are required'); window.open('doctor.html','_self');</script>";
+            echo "<script>alert('All fields are required')</script>";
+            echo "<script>window.open('../html/doctor.html','_self');</script>";
         }
         $conn->close();
     }
 } else {
-    echo "<script>alert('Error submitting form'); window.open('doctor.html','_self');</script>";
+    echo "<script>alert('Error submitting form')</script>";
+    echo "<script>window.open('../html/doctor.html','_self');</script>";
 }
 ?>
