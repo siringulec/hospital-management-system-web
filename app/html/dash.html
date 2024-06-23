@@ -2,23 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .main-color {
+            color: #E67484;
+        }
+        .accent-color {
+            color: #602a42;
+        }
+        .btn-custom {
+            background-color: #E67484;
+            border-color: #E67484;
+            color: #fff;
+        }
+        .btn-custom:hover {
+            background-color: #602a42;
+            border-color: #602a42;
+            color: #fff;
+        }
+        .dashboard-container {
+            margin: 20px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .nav-link {
+            color: #602a42;
+        }
+        .nav-link:hover {
+            color: #E67484;
+        }
+    </style>
 </head>
-<body class="bd">
-    <div class="sidenav">
-        <h2>DASHBOARD</h2>
-        <ul class="nav navbar-nav">
-            <li><a href="../html/listAppointments.html">Appointments</a></li>
-            <li><a href="../html/patients.html">Patients</a></li>
-            <li><a href="../html/doctor.html">Doctors</a></li>
-            <li><a href="../html/tests.html">Type Of Tests</a></li>
-            <li><a href="../html/medicines.html">Medicines</a></li>
-            <li><a href="../php/logout.php">Logout</a></li>
-        </ul>
+<body>
+    <div class="container">
+        <h1 class="main-color text-center my-4">Admin Dashboard</h1>
+        <div class="dashboard-container">
+            <nav class="nav flex-column">
+                <a class="nav-link" href="../html/listAppointments.html">List Appointments</a>
+                <a class="nav-link" href="../html/listDiagnoses.html">List Diagnoses</a>
+                <a class="nav-link" href="../html/listTests.html">List Tests</a>
+                <a class="nav-link" href="../html/listPrescriptions.html">List Prescription</a>
+                <a class="nav-link" href="../html/patients.html">Patients</a>
+                <a class="nav-link" href="../html/doctor.html">Doctors</a>
+                <a class="nav-link" href="../html/tests.html">Types of Tests</a>
+                <a class="nav-link" href="../html/medicines.html">Medicines</a>
+                <a class="nav-link" href="../php/logout.php">Logout</a>
+            </nav>
+        </div>
     </div>
-    <div class="main-content">
 
-    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

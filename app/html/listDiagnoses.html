@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnosis Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .main-color {
+            color: #E67484;
+        }
+        .accent-color {
+            color: #602a42;
+        }
+        .btn-custom {
+            background-color: #E67484;
+            border-color: #E67484;
+            color: #fff;
+        }
+        .btn-custom:hover {
+            background-color: #602a42;
+            border-color: #602a42;
+            color: #fff;
+        }
+        .table-container {
+            margin: 20px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../php/fetchDiagnoses.php')
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById('diagnosisTable');
+                    if (data.length > 0) {
+                        data.forEach(diagnosis => {
+                            const row = table.insertRow();
+                            const patientCell = row.insertCell(0);
+                            const dateCell = row.insertCell(1);
+                            const symptomsCell = row.insertCell(2);
+                            const diagnosisCell = row.insertCell(3);
+
+                            patientCell.textContent = diagnosis.patient_name;
+                            dateCell.textContent = diagnosis.date;
+                            symptomsCell.textContent = diagnosis.symptoms;
+                            diagnosisCell.textContent = diagnosis.diagnosis;
+                        });
+                    } else {
+                        const row = table.insertRow();
+                        const cell = row.insertCell(0);
+                        cell.colSpan = 4;
+                        cell.textContent = 'No diagnosis found';
+                        cell.className = 'text-center';
+                    }
+                });
+        });
+    </script>
+</head>
+<body class="bg-light">
+    <div class="container">
+        <h1 class="main-color text-center my-4">Diagnosis Details</h1>
+        <div class="table-container">
+            <table class="table table-striped table-bordered" id="diagnosisTable">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Patient</th>
+                        <th>Date</th>
+                        <th>Symptoms</th>
+                        <th>Diagnosis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+            <div class="text-center">
+                <a href="dash.html" class="btn btn-custom mt-3">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
