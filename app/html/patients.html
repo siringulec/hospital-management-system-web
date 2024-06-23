@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patients Details</title>
+    <title>Patients Management</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .main-color {
@@ -22,12 +22,15 @@
             border-color: #602a42;
             color: #fff;
         }
-        .table-container {
+        .table-container, .form-container {
             margin: 20px;
             background: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-container label {
+            margin-top: 10px;
         }
     </style>
     <script>
@@ -68,26 +71,82 @@
 </head>
 <body class="bg-light">
     <div class="container">
-        <h1 class="main-color text-center my-4">Patients Details</h1>
-        <div class="table-container">
-            <table class="table table-striped table-bordered" id="patientsTable">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Patient ID</th>
-                        <th>User Name</th>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Gender</th>
-                        <th>Phone Number</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Data will be inserted here by JavaScript -->
-                </tbody>
-            </table>
-            <div class="text-center">
-                <a href="dash.html" class="btn btn-custom mt-3">Back to Dashboard</a>
+        <h1 class="main-color text-center my-4">Patients Management</h1>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="add-tab" data-toggle="tab" href="#add" role="tab" aria-controls="add" aria-selected="true">Add Patient</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="view-tab" data-toggle="tab" href="#view" role="tab" aria-controls="view" aria-selected="false">View Patients</a>
+            </li>
+        </ul>
+
+        <!-- Tab content -->
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="add" role="tabpanel" aria-labelledby="add-tab">
+                <div class="form-container">
+                    <h2 class="text-center main-color my-4">Add Patient</h2>
+                    <form method="POST" action="../php/addPatient.php">
+                        <div class="form-group">
+                            <label for="uname">User Name</label>
+                            <input type="text" class="form-control" id="uname" name="uname" placeholder="User Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" class="form-control" id="age" name="age" placeholder="Age" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass">Password</label>
+                            <input type="password" class="form-control" id="pass" name="pass" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select id="gender" name="gender" class="form-control" required>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <button type="submit" id="submit" name="submit" class="btn btn-custom btn-block mt-4">Add Patient</button>
+                    </form>
+                    <div class="text-center mt-4">
+                        <a href="dash.html" class="btn btn-custom">Back to Dashboard</a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="view" role="tabpanel" aria-labelledby="view-tab">
+                <div class="table-container">
+                    <h2 class="text-center my-4">Patients Details and Delete</h2>
+                    <table class="table table-striped table-bordered" id="patientsTable">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>User Name</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>Phone Number</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+                    <div class="text-center mt-4">
+                        <a href="dash.html" class="btn btn-custom">Back to Dashboard</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
