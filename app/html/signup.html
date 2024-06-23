@@ -62,10 +62,6 @@
                 <input type="text" class="form-control" id="username" name="username" required>
             </div>
             <div class="form-group">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <div class="form-group">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
@@ -85,6 +81,18 @@
                 <label for="phone" class="form-label">Phone</label>
                 <input type="text" class="form-control" id="phone" name="phone" required>
             </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmpassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" required>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="togglePassword">
+                <label class="form-check-label" for="togglePassword">See Password</label>
+            </div>
             <div class="form-group text-center">
                 <button type="button" class="btn admin-login mr-2" onclick="location.href='../index.html'">Back to Login</button>
                 <button type="reset" class="btn btn-secondary mr-2">Cancel</button>
@@ -93,6 +101,19 @@
         </form>
     </div>
 
+    <script>
+        document.getElementById("togglePassword").addEventListener("click", function() {
+            var password = document.getElementById("password");
+            var confirm_password = document.getElementById("confirmpassword");
+            if (password.type === "password" && confirm_password.type === "password") {
+                password.type = "text";
+                confirm_password.type = "text";
+            } else {
+                password.type = "password";
+                confirm_password.type = "password";
+            }
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
